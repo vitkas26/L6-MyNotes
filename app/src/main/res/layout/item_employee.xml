@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_margin"
+    app:cardBackgroundColor="@color/card_background_color"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation_size"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/half_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/half_padding"
+                app:tint="@color/black"
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+            <TextView
+                android:id="@+id/name_text_view"
+                style="@style/list_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/surname_text_view"
+                style="@style/list_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="Surname" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/position_text_view"
+            style="@style/list_item_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Position" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/half_padding"
+            android:text="@string/delete_button_name"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
