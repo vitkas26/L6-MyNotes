@@ -1,33 +1,36 @@
-package com.example.l6_mynotes;
+package com.example.l6_mynotes.data;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
+
+import com.example.l6_mynotes.domain.EmployeeEntity;
+import com.example.l6_mynotes.domain.EmployeeRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListViewUtils {
-    static View createItemView(LayoutInflater inflater, ViewGroup layout, EmployeeEntity employeeItem, View.OnClickListener onClickListener) {
-        final View employeeItemView = inflater.inflate(R.layout.item_employee, layout, false);
+public class CacheEmployeeRepositoryImpl implements EmployeeRepository {
+    private ArrayList<EmployeeEntity> cache = new ArrayList<>();
 
-        final TextView nameTextView = employeeItemView.findViewById(R.id.name_text_view);
-        final TextView surnameTextView = employeeItemView.findViewById(R.id.surname_text_view);
-        final TextView positionTextView = employeeItemView.findViewById(R.id.position_text_view);
-        final Button deleteButton = employeeItemView.findViewById(R.id.delete_button);
-
-        nameTextView.setText(employeeItem.getName());
-        surnameTextView.setText(employeeItem.getSurname());
-        positionTextView.setText(employeeItem.getPosition());
-
-        deleteButton.setOnClickListener(onClickListener);
-        return employeeItemView;
+    public CacheEmployeeRepositoryImpl(){
+        cache.addAll(createEmployees());
     }
 
-    static ArrayList<EmployeeEntity> createEmployees() {
+    @Override
+    public List<EmployeeEntity> getEmployees() {
+        return cache;
+    }
+
+    @Override
+    public void deleteEmployees(EmployeeEntity employeeEntity) {
+        try{
+            cache.remove(getPosByItem(employeeEntity));
+        } catch (IllegalArgumentException iae){
+            iae.printStackTrace();
+        }
+    }
+
+    @NonNull
+    private static List<EmployeeEntity> createEmployees() {
         final ArrayList<EmployeeEntity> employeeEntities = new ArrayList<>();
         employeeEntities.add(new EmployeeEntity(
                 "1",
@@ -65,5 +68,14 @@ public class ListViewUtils {
                 40_000,
                 "Вахтер"));
         return employeeEntities;
+    }
+
+    private int getPosByItem(EmployeeEntity employeeItem) {
+        for (int i = 0; i < cache.size(); i++) {
+            if (employeeItem.getId().equals(cache.get(i).getId())) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Not existing parameter");
     }
 }

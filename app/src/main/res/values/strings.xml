@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">L6-MyNotes</string>
+    <string name="refresh_button_name">Refresh List</string>
+    <string name="delete_button_name">Delete</string>
 </resources>
